@@ -1,6 +1,6 @@
 package Net::SMS::Mtnsms;
 
-$VERSION = '0.001';
+$VERSION = '0.002';
 
 use strict;
 
@@ -10,7 +10,6 @@ use strict;
 #
 #------------------------------------------------------------------------------
 
-use Carp;
 require Net::SMS::Web;
 
 #------------------------------------------------------------------------------
@@ -180,7 +179,7 @@ sub AUTOLOAD
     my $key = $AUTOLOAD;
     $key =~ s/.*:://;
     return if $key eq 'DESTROY';
-    confess ref($self), ": unknown method $AUTOLOAD\n" 
+    die ref($self), ": unknown method $AUTOLOAD\n" 
         unless $LEGAL_KEYS{ $key }
     ;
     if ( defined( $value ) )
@@ -247,7 +246,7 @@ sub _check_length
         ;
         if ( $self->{message_length} > $MAX_CHARS )
         {
-            confess ref($self), 
+            die ref($self), 
                 ": total message length (subject + message)  is too long ",
                 "(> $MAX_CHARS)\n"
             ;
@@ -262,7 +261,7 @@ sub _init
 
     for ( keys %REQUIRED_KEYS )
     {
-        confess ref($self), ": $_ field is required\n" unless $keys{$_};
+        die ref($self), ": $_ field is required\n" unless $keys{$_};
     }
     for ( keys %keys )
     {
