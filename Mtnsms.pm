@@ -1,6 +1,6 @@
 package Net::SMS::Mtnsms;
 
-$VERSION = '0.002';
+$VERSION = '0.003';
 
 use strict;
 
